@@ -12,54 +12,73 @@
     <div class="background-animation"></div>
     
     <main class="container">
-        <div class="glass-card">
-            <header class="card-header">
-                <img src="assets/logo.jpg" alt="EELU Logo" class="logo">
-                <h1>استعلام المرشد الأكاديمي</h1>
-                <p>أدخل الكود الخاص بك لمعرفة بيانات مرشدك الأكاديمي</p>
-            </header>
+        <div class="glass-card view-container">
+            <!-- Search View -->
+            <div id="searchView" class="view active">
+                <header class="card-header">
+                    <img src="assets/logo.jpg" alt="EELU Logo" class="logo">
+                    <h1>استعلام المرشد الأكاديمي</h1>
+                    <p>أدخل الكود الخاص بك لمعرفة بيانات مرشدك الأكاديمي</p>
+                </header>
 
-            <form id="searchForm" class="search-form">
-                <div class="input-group">
-                    <input type="text" id="studentId" placeholder="أدخل كود الطالب هنا..." required pattern="\d+" title="الرجاء إدخال أرقام فقط">
-                    <div class="input-highlight"></div>
-                </div>
-                <button type="submit" class="search-btn">
-                    <span class="btn-text">بحث</span>
-                    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="11" cy="11" r="8"></circle>
-                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                    </svg>
-                </button>
-            </form>
+                <form id="searchForm" class="search-form">
+                    <div class="input-group">
+                        <input type="text" id="studentId" placeholder="أدخل كود الطالب هنا..." required pattern="\d+" title="الرجاء إدخال أرقام فقط">
+                        <div class="input-highlight"></div>
+                    </div>
+                    <button type="submit" class="search-btn">
+                        <span class="btn-text">بحث</span>
+                        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                    </button>
+                </form>
 
-            <div id="resultContainer" class="result-container hidden">
-                <div class="result-card">
-                    <div class="result-item">
-                        <span class="label">اسم الطالب</span>
-                        <h2 id="resultName" class="value text-primary"></h2>
-                    </div>
-                    <div class="divider"></div>
-                    <div class="result-item">
-                        <span class="label">المرشد الأكاديمي</span>
-                        <h3 id="resultAdvisor" class="value text-secondary"></h3>
-                    </div>
-                    <div class="divider"></div>
-                    <div class="result-item">
-                        <span class="label">البريد الإلكتروني للتواصل</span>
-                        <a id="resultEmail" class="value text-email" href="" dir="ltr" style="display:inline-block; margin-top:5px; text-decoration:none;"></a>
+                <div id="errorContainer" class="error-container hidden">
+                    <div class="error-card">
+                        <svg class="error-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="15" y1="9" x2="9" y2="15"></line>
+                            <line x1="9" y1="9" x2="15" y2="15"></line>
+                        </svg>
+                        <p id="errorMessage">عذراً، لم يتم العثور على طالب بهذا الكود.</p>
                     </div>
                 </div>
             </div>
 
-            <div id="errorContainer" class="error-container hidden">
-                <div class="error-card">
-                    <svg class="error-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="10"></circle>
-                        <line x1="15" y1="9" x2="9" y2="15"></line>
-                        <line x1="9" y1="9" x2="15" y2="15"></line>
+            <!-- Result View -->
+            <div id="resultView" class="view hidden">
+                <button id="backBtn" class="back-btn" type="button">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="19" y1="12" x2="5" y2="12"></line>
+                        <polyline points="12 19 5 12 12 5"></polyline>
                     </svg>
-                    <p id="errorMessage">عذراً، لم يتم العثور على طالب بهذا الكود.</p>
+                    <span>رجوع</span>
+                </button>
+                
+                <header class="card-header result-header">
+                    <img src="assets/logo.jpg" alt="EELU Logo" class="logo logo-small">
+                    <h2>بيانات المرشد الأكاديمي</h2>
+                </header>
+
+                <div id="resultContainer" class="result-container">
+                    <div class="result-card">
+                        <div class="result-item">
+                            <span class="label">اسم الطالب</span>
+                            <h2 id="resultName" class="value text-primary"></h2>
+                        </div>
+                        <div class="divider"></div>
+                        <div class="result-item">
+                            <span class="label">المرشد الأكاديمي</span>
+                            <h3 id="resultAdvisor" class="value text-secondary"></h3>
+                        </div>
+                        <div class="divider"></div>
+                        <div class="result-item">
+                            <span class="label">البريد الإلكتروني للتواصل</span>
+                            <a id="resultEmail" class="value text-email" href="" dir="ltr" style="display:inline-block; margin-top:5px; text-decoration:none;"></a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

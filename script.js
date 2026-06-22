@@ -1,12 +1,14 @@
 document.addEventListener('DOMContentLoaded', () => {
     const searchForm = document.getElementById('searchForm');
     const studentIdInput = document.getElementById('studentId');
-    const resultContainer = document.getElementById('resultContainer');
+    const searchView = document.getElementById('searchView');
+    const resultView = document.getElementById('resultView');
     const errorContainer = document.getElementById('errorContainer');
     const resultName = document.getElementById('resultName');
     const resultAdvisor = document.getElementById('resultAdvisor');
     const resultEmail = document.getElementById('resultEmail');
     const searchBtn = document.querySelector('.search-btn');
+    const backBtn = document.getElementById('backBtn');
 
     const advisorEmails = {
         'Engineer Ali Khaled': 'amasoud@eelu.edu.eg',
@@ -31,8 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         if (!id) return;
 
-        // Hide previous results/errors
-        resultContainer.classList.add('hidden');
+        // Hide previous errors
         errorContainer.classList.add('hidden');
         
         // Add loading state
@@ -60,8 +61,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 resultEmail.textContent = email;
                 resultEmail.href = email !== 'غير متوفر' ? `mailto:${email}` : '#';
                 
-                // Show result with animation
-                resultContainer.classList.remove('hidden');
+                // Show result view instead of search view
+                searchView.classList.add('hidden');
+                resultView.classList.remove('hidden');
             } else {
                 // Show error
                 showError('عذراً، لم يتم العثور على طالب بهذا الكود.');
@@ -77,5 +79,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // Add input formatting (allow only numbers)
     studentIdInput.addEventListener('input', function(e) {
         this.value = this.value.replace(/[^0-9]/g, '');
+    });
+
+    // Handle back button
+    backBtn.addEventListener('click', () => {
+        resultView.classList.add('hidden');
+        searchView.classList.remove('hidden');
+        studentIdInput.value = ''; // clear the input for next search
+        studentIdInput.focus();
     });
 });
